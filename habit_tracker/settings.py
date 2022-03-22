@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
+import django_on_heroku
 from pathlib import Path
 import environ
 
@@ -135,3 +136,6 @@ SIMPLE_BACKEND_REDIRECT_URL = "/"
 
 LOGIN_REDIRECT_URL = "/"
 REGISTRATION_AUTO_LOGIN = True
+
+django_on_heroku.settings(locals())
+del DATABASES['default']['OPTIONS']['sslmode']
