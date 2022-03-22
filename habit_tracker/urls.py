@@ -19,7 +19,8 @@ from habit import views as habit_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('auth/', include('registration.backends.default.urls')),
-    # path('', habit_views.login, name='login'),
-    # path('habits/', habit_views.home, name='home'),
+    path('auth/', include('registration.backends.default.urls')),
+    path('', habit_views.login, name='login'),
+    path('habit/', habit_views.home, name='home'),
+    path('habit/add_habit/', habit_views.add_habit, name='add_habit')
 ]

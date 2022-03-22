@@ -3,17 +3,30 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from habit.models import Habit
 
 
-# def login(request):
-#     pass
-#     # if request.user.is_authenticated:
-#     #     return redirect('home')
+def login(request):
+    if request.user.is_authenticated:
+        return redirect('home')
+    return render(request, "habit/login.html")
 
 
 @login_required
 def home(request):  # this will include our list of the decks. Kind of like list_books or list_albums in other projects
     habits = Habit.objects.all()
-    
+    return render(request, "habit/home.html", {"habits": habits})
 
+
+@login_required
+def add_habit(request):
+    if request.method == 'POST':
+        form = HabitForm(data=request.POST)
+        if form.is_valid():
+            user = form.save()
+
+            return redirect("home")
+    else:
+        form = HabitForm()
+
+        return render(request, "habit/add_habit.html", {'form': form})
 # TODO All habits_list
 # TODO Add, edit, delete habits from main page and from habits_list
 # TODO update habit (post and save to database)
