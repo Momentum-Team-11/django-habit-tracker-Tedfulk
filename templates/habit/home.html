@@ -6,28 +6,29 @@
  <h1 class="home-title dark-blue">Your Habit Lists</h1>
  <div class="container">
   {% for habit in habits %}
-  <div class="home-deck">
-   <div class="deck mv1 pa3 br2 bw--1 b--near-white bg-white">
-    <a href="{% url 'habit_detail' pk=habit.pk %}" class="deck_title f3 fw6  blue underline underline-hover">{{ habit.habit }}</a>
-    <p class="mv3 f4">{{ result.record }} </p>
-    <a href="{% url 'add_habit' %}" class="db dark-blue link dim"><i class="fa fa-plus ph2"></i>Add habit
-     to list</a>
-    <section class="add-deck mt4">
+  <div class="home-deck flex">
+   <div class="deck mv1 pa3 pv1 br2 bw--1 b--near-white bg-white w-20">
+    <p class="deck_title f3 fw6 blue">{{ habit.habit }}<p>
+    <p class="mv3 f4">Goal: {{ habit.goal }} </p>
+    <section class="add-deck">
 
-     <section class="add-deck mt4">
+     <section class="add-deck">
       </br>
       </br>
       <a href="{% url 'edit_habit' pk=habit.pk %}"><i
         class="fa-solid fa-pen-to-square db dark-blue link dim pa2"></i></a>
       <a href="{% url 'delete_habit' pk=habit.pk %}"><i
         class="fa-solid fa-circle-minus db dark-blue link dim pa2"></i></a>
+        <a href="{% url 'habit_detail' pk=habit.pk %}" class="deck_title f3 fw6 dim pa2"style="color:#fff000"><i class="fa-solid fa-chart-column"></i></a>
      </section>
+   </div>
    </div>
    {% empty %}
    <h2>Sorry, no habits yet.</h2>
    <h3>Add some habits now.</h3>
    {% endfor %}
 
+</section>
 </section>
 
 {% endblock content %}

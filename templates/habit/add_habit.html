@@ -1,21 +1,22 @@
-<!-- {% extends "base.html" %} -->
+{% extends "base.html" %}
+{% load static %}
 
-<!-- {% block content %} -->
-
-
-
-<!-- <h1>Create Your Deck!!</h1> -->
+{% block content %}
 
 
-<!-- <div> -->
- <!-- <form action="{% url 'add_deck' %}" method="post"> -->
-  <!-- {% csrf_token %} -->
-  <!-- {{ form.as_p }} -->
-  <!-- <div> -->
-   <!-- <button type="submit">Add Deck</button> -->
-  <!-- </div> -->
- <!-- </form> -->
-<!-- </div> -->
+
+<h1>Create Your Habit</h1>
 
 
-<!-- {% endblock %} -->
+<div>
+ <form action="{% url 'add_habit' %}" method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <div>
+   <button type="submit">Add Habit</button>
+  </div>
+ </form>
+</div>
+
+
+{% endblock %}

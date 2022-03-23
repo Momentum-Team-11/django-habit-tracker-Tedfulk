@@ -1,3 +1,16 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block content %}
+<h1>Edit Habit</h1>
+
+<div>
+ <form action="{% url 'edit_habit' pk=habit.pk %}" method="POST">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <div>
+   <button type="submit">Update Habit</button>
+  </div>
+ </form>
+</div>
+{% endblock %}
