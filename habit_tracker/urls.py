@@ -22,5 +22,10 @@ urlpatterns = [
     path('auth/', include('registration.backends.default.urls')),
     path('', habit_views.login, name='login'),
     path('habit/', habit_views.home, name='home'),
-    path('habit/add_habit/', habit_views.add_habit, name='add_habit')
+    path('habit/<int:pk>/', habit_views.habit_detail, name='habit_detail'),
+    path('habit/add_habit/', habit_views.add_habit, name='add_habit'),
+    path('habit/<int:pk>/edit/', habit_views.edit_habit,
+         name='edit_habit'),
+    path('habit/<int:pk>/delete/', habit_views.delete_habit,
+         name='delete_habit'),
 ]

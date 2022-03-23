@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404, reverse
 from django.contrib.auth.decorators import login_required, user_passes_test
 from habit.models import Habit
+from .forms import HabitForm
 
 
 def login(request):
@@ -15,18 +16,52 @@ def home(request):  # this will include our list of the decks. Kind of like list
     return render(request, "habit/home.html", {"habits": habits})
 
 
+def habit_detail(request, pk):
+    habit = get_object_or_404(Habit, pk=pk)
+    form = HabitForm()
+    return render(
+        request,
+        "habit/habit_detail.html",
+        {"habit": habit, "form": form}
+    )
+
+
 @login_required
 def add_habit(request):
     if request.method == 'POST':
         form = HabitForm(data=request.POST)
         if form.is_valid():
-            user = form.save()
+            # user = form.save()
 
             return redirect("home")
     else:
         form = HabitForm()
 
         return render(request, "habit/add_habit.html", {'form': form})
+
+
+def edit_habit(request, pk):
+    habit = get_object_or_404(Habit, pk=pk)
+    if request.method == 'GET':
+        form = HabitForm(instance=habit)
+    else:
+        form = HabitForm(data=request.POST, instance=habit)
+        if form.is_valid():
+            form.save()
+            return redirect(to='home')
+
+    return render(request, "habit/edit_habit.html", {
+        "form": form,
+        "habit": habit
+    })
+
+
+def delete_habit(request, pk):
+    habit = get_object_or_404(Habit, pk=pk)
+    if request.method == 'POST':
+        habit.delete()
+        return redirect(to='home')
+    return render(request, "habit/delete_habit.html", {"habit": habit})
 # TODO All habits_list
 # TODO Add, edit, delete habits from main page and from habits_list
 # TODO update habit (post and save to database)
