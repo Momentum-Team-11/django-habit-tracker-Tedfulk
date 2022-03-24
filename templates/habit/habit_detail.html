@@ -5,8 +5,8 @@
 
 {% if user.is_authenticated %}
 {% if habit.user_id == user.id %}
-<div class="pb3">
-  <p class="p1 f3 lh-copy">{{ habit.habit }} </p>
+<div class="pb2">
+  <p class="f3">{{ habit.habit }} </p>
   <p>Goal: {{ habit.goal }} </p>
 </div>
 <a href={% url 'add_result' habit.pk %}>Add a New Result</a>
@@ -14,7 +14,7 @@
 {% for result in results %}
   <p>Today's Number: {{ result.daily_record }} </p>
   <p>Date: {{ result.update_date|date:"m/d/Y" }} </p>
- <a href={% url 'edit_result' pk=habit.pk pk=result.pk %}>Edit Result</a>
+ <a href={% url 'edit_result'  pk=result.pk %}>Edit Result</a>
  <a href={% url 'delete_result' pk=result.pk %}>Delete Result</a>
 
  {% endfor %}
