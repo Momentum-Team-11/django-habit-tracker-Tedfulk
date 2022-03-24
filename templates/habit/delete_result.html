@@ -4,12 +4,12 @@
 <h1>Delete Result</h1>
 
 <div>
- <form action="{% url 'delete_result' pk=result.pk %}" method="POST">
+ <form action="{% url 'delete_result' result_pk=result.pk %}" method="POST">
   {% csrf_token %}
   <p>Are you sure you want to delete result on {{ result.update_date|date:"m/d/Y" }} ?</p>
   <div>
    <button type="submit">Delete Result</button><br />
-   <a href="{% url 'habit_detail' pk=result.pk %}">Cancel</a>
+   <a href="{% url 'habit_detail' pk=result.habit_record.pk %}">Cancel</a>
   </div>
  </form>
 </div>

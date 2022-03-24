@@ -71,7 +71,7 @@ def add_result(request, pk):
         form = ResultForm(data=request.POST)
         if form.is_valid():
             result = form.save(commit=False)
-            result.habit = habit
+            result.habit_record_id = habit.id
             result.save()
             return redirect(to='habit_detail', pk=habit.pk)
 
@@ -97,14 +97,14 @@ def edit_result(request, pk):
 
 
 @login_required
-def delete_result(request, pk):
-    result = get_object_or_404(Result, pk=pk)
+def delete_result(request, result_pk):
+    result = get_object_or_404(Result, pk=result_pk)
     if request.method == 'POST':
         habit_pk = result.habit_record.pk
         result.delete()
         return redirect(to='habit_detail', pk=habit_pk)
-    return render(request, "habit/delete_result.html", {"result": result, })
-# I have an issue when I try to delete result
+    return render(request, "habit/delete_result.html", {"result": result})
+# I have an issue when I try to delete a result the cancel button doesn't work. its going to the results pk and not the habits pk
 
 # TODO add edit delete result to habit (post and save to database)
 # TODO update result to habit (post and save to database)

@@ -28,9 +28,10 @@ urlpatterns = [
          name='edit_habit'),
     path('habit/<int:pk>/delete/', habit_views.delete_habit,
          name='delete_habit'),
-    path('habit/<int:pk>/add_result/', habit_views.add_result, name='add_result'),
+    path('habit/<int:pk>/add_result/',
+         habit_views.add_result, name='add_result'),
     path('habit/<int:pk>/edit_result/',
          habit_views.edit_result, name='edit_result'),
-    path('habit/<int:pk>/delete_result/',
+    path('habit/<int:result_pk>/delete_result/',
          habit_views.delete_result, name='delete_result'),
 ]

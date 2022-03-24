@@ -3,8 +3,7 @@
 
 {% block content %}
 
-{% if user.is_authenticated %}
-{% if habit.user_id == user.id %}
+
 <div class="pb2">
   <p class="f3">{{ habit.habit }} </p>
   <p>Goal: {{ habit.goal }} </p>
@@ -15,11 +14,9 @@
   <p>Today's Number: {{ result.daily_record }} </p>
   <p>Date: {{ result.update_date|date:"m/d/Y" }} </p>
  <a href={% url 'edit_result'  pk=result.pk %}>Edit Result</a>
- <a href={% url 'delete_result' pk=result.pk %}>Delete Result</a>
+ <a href={% url 'delete_result' result_pk=result.pk %}>Delete Result</a>
 
  {% endfor %}
 
- {% endif %}
- {% endif %}
 
 {% endblock content %}
