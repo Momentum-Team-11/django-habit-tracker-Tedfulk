@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404, reverse
 from django.contrib.auth.decorators import login_required, user_passes_test
-from habit.models import Habit
-from .forms import HabitForm
+from habit.models import Habit, Result
+from .forms import HabitForm, ResultForm
 
 
 def login(request):
@@ -11,19 +11,17 @@ def login(request):
 
 
 @login_required
-def home(request):  # this will include our list of the decks. Kind of like list_books or list_albums in other projects
+def home(request):
     habits = Habit.objects.all()
     return render(request, "habit/home.html", {"habits": habits})
 
 
 def habit_detail(request, pk):
     habit = get_object_or_404(Habit, pk=pk)
+    results = Result.objects.all().filter(habit_record_id=habit.id)
     form = HabitForm()
-    return render(
-        request,
-        "habit/habit_detail.html",
-        {"habit": habit, "form": form}
-    )
+    return render(request, "habit/habit_detail.html", {"habit": habit, "results": results, "form": form}
+                  )
 
 
 @login_required
@@ -31,7 +29,7 @@ def add_habit(request):
     if request.method == 'POST':
         form = HabitForm(data=request.POST)
         if form.is_valid():
-            # user = form.save()
+            form.save()
 
             return redirect("home")
     else:
@@ -62,9 +60,54 @@ def delete_habit(request, pk):
         habit.delete()
         return redirect(to='home')
     return render(request, "habit/delete_habit.html", {"habit": habit})
-# TODO All habits_list
-# TODO Add, edit, delete habits from main page and from habits_list
-# TODO update habit (post and save to database)
+
+
+@login_required
+def add_result(request, pk):
+    habit = get_object_or_404(Habit, pk=pk)
+    if request.method == 'GET':
+        form = ResultForm()
+    else:
+        form = ResultForm(data=request.POST)
+        if form.is_valid():
+            result = form.save(commit=False)
+            result.habit = habit
+            result.save()
+            return redirect(to='habit_detail', pk=habit.pk)
+
+    return render(request, "habit/add_result.html", {"form": form, "habit": habit})
+
+
+@login_required
+def edit_result(request, pk):
+    result = get_object_or_404(Result, pk=pk)
+    if request.method == 'GET':
+        form = ResultForm(instance=result)
+    else:
+        form = ResultForm(data=request.POST, instance=result)
+        if form.is_valid():
+            habit_pk = result.habit_record.pk
+            form.save()
+            return redirect(to='habit_detail', pk=habit_pk)
+
+    return render(request, "habit/edit_result.html", {
+        "form": form,
+        "result": result
+    })
+
+
+@login_required
+def delete_result(request, pk):
+    result = get_object_or_404(Result, pk=pk)
+    if request.method == 'POST':
+        habit_pk = result.habit_record.pk
+        result.delete()
+        return redirect(to='habit_detail', pk=habit_pk)
+    return render(request, "habit/delete_result.html", {"result": result, })
+# I have an issue when I try to delete result
+
+# TODO add edit delete result to habit (post and save to database)
+# TODO update result to habit (post and save to database)
 # TODO Nice to have sort habits
 # if habit isn't done that day then turn habit red or gray
 # - Users should be able to create new habits and track those habits with trackers, or daily records (what you call it is up to you).

@@ -1,6 +1,8 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
+
 
 <section class="flashcard-list">
  <h1 class="home-title dark-blue">Your Habit Lists</h1>
@@ -26,9 +28,11 @@
    {% empty %}
    <h2>Sorry, no habits yet.</h2>
    <h3>Add some habits now.</h3>
-   {% endfor %}
+   
+  </section>
+</section>
 
-</section>
-</section>
+  {% endfor %}
+
 
 {% endblock content %}

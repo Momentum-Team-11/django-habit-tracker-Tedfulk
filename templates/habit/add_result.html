@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<h1>Create Your Result</h1>
+<div>
+ <form action="{% url 'add_result' pk=habit.pk %}" method="POST">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <div>
+   <button type="submit">Add Result</button>
+  </div>
+ </form>
+</div>
+{% endblock %}

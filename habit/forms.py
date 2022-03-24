@@ -1,5 +1,5 @@
 from django import forms
-from .models import Habit
+from .models import Habit, Result
 
 
 class HabitForm(forms.ModelForm):
@@ -8,4 +8,13 @@ class HabitForm(forms.ModelForm):
         fields = [
             'habit',
             'goal',
+        ]
+
+
+class ResultForm(forms.ModelForm):
+    class Meta:
+        model = Result
+        fields = [
+            'daily_record',
+            'completed',
         ]

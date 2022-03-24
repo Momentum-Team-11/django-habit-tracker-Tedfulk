@@ -1,5 +1,25 @@
-<!-- bar graph, top is going to be input field of new entry  -->
-<!-- y axis what you're going to be measuring by i.e. how many steps you do throughtout the day. --> 
-<!-- 10,000 steps is the goal which is a dotted line across? or just a number to the side.   -->
-<!-- x axis days -->
-<!-- also could be monthly and yearly -->
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+{% if habit.user_id == user.id %}
+<div class="pb3">
+  <p class="p1 f3 lh-copy">{{ habit.habit }} </p>
+  <p>Goal: {{ habit.goal }} </p>
+</div>
+<a href={% url 'add_result' habit.pk %}>Add a New Result</a>
+
+{% for result in results %}
+  <p>Today's Number: {{ result.daily_record }} </p>
+  <p>Date: {{ result.update_date|date:"m/d/Y" }} </p>
+ <a href={% url 'edit_result' pk=habit.pk pk=result.pk %}>Edit Result</a>
+ <a href={% url 'delete_result' pk=result.pk %}>Delete Result</a>
+
+ {% endfor %}
+
+ {% endif %}
+ {% endif %}
+
+{% endblock content %}

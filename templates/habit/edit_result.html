@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<h1>Edit Result</h1>
+
+<div>
+ <form action="{% url 'edit_result' pk=result.pk %}" method="POST">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <div>
+   <button type="submit">Update Result</button>
+  </div>
+ </form>
+</div>
+{% endblock %}
