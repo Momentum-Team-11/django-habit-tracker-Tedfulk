@@ -35,5 +35,5 @@ class Result(models.Model):
     class Meta:
         constraints = [
             models.UniqueConstraint(
-                fields=["habit_record", "update_date", "daily_record"], name="one_record_per_day")
+                fields=["habit_record", "update_date"], name="one_record_per_day")
         ]

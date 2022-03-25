@@ -9,7 +9,7 @@
 
 
 <div>
- <form action="{% url 'add_habit' %}" method="post">
+ <form action="{% url 'add_habit' %}" method="POST">
   {% csrf_token %}
   {{ form.as_p }}
   <div>

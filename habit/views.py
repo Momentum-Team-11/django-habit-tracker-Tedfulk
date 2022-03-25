@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404, reverse
 from django.contrib.auth.decorators import login_required, user_passes_test
-from habit.models import Habit, Result
+from habit.models import Habit, Result, User
 from .forms import HabitForm, ResultForm
 
 
@@ -26,10 +26,13 @@ def habit_detail(request, pk):
 
 @login_required
 def add_habit(request):
+    user = get_object_or_404(User)
     if request.method == 'POST':
         form = HabitForm(data=request.POST)
         if form.is_valid():
-            form.save()
+            habit = form.save(commit=False)
+            habit.user_id = user.id
+            habit.save()
 
             return redirect("home")
     else:
@@ -104,11 +107,12 @@ def delete_result(request, result_pk):
         result.delete()
         return redirect(to='habit_detail', pk=habit_pk)
     return render(request, "habit/delete_result.html", {"result": result})
-# I have an issue when I try to delete a result the cancel button doesn't work. its going to the results pk and not the habits pk
+#issue with the user_id being null
 
-# TODO add edit delete result to habit (post and save to database)
+
 # TODO update result to habit (post and save to database)
-# TODO Nice to have sort habits
+# TODO annotate() could help me get the number or of boolean values for results completed. 
+# TODO display the days that the goal was met.  
 # if habit isn't done that day then turn habit red or gray
 # - Users should be able to create new habits and track those habits with trackers, or daily records (what you call it is up to you).
 # - Each habit should have a name and a target or goal. What is this "target"? Each habit should have a daily number of some action you want to do. Some examples:
