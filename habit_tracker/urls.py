@@ -23,6 +23,7 @@ urlpatterns = [
     path('', habit_views.login, name='login'),
     path('habit/', habit_views.home, name='home'),
     path('habit/<int:pk>/', habit_views.habit_detail, name='habit_detail'),
+    path('habit/<int:pk>/result_list', habit_views.result_detail, name='result_detail'),
     path('habit/add_habit/', habit_views.add_habit, name='add_habit'),
     path('habit/<int:pk>/edit/', habit_views.edit_habit,
          name='edit_habit'),

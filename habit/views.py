@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404, reverse
 from django.contrib.auth.decorators import login_required, user_passes_test
 from habit.models import Habit, Result, User
 from .forms import HabitForm, ResultForm
+from django.contrib import messages
 
 
 def login(request):
@@ -24,6 +25,14 @@ def habit_detail(request, pk):
                   )
 
 
+def result_detail(request, pk):
+    habit = get_object_or_404(Habit, pk=pk)
+    results = Result.objects.all().filter(habit_record_id=habit.id)
+    form = HabitForm()
+    return render(request, "habit/result_detail.html", {"habit": habit, "results": results, "form": form}
+                  )
+
+
 @login_required
 def add_habit(request):
     user = get_object_or_404(User)
@@ -33,7 +42,6 @@ def add_habit(request):
             habit = form.save(commit=False)
             habit.user_id = user.id
             habit.save()
-
             return redirect("home")
     else:
         form = HabitForm()
@@ -76,6 +84,7 @@ def add_result(request, pk):
             result = form.save(commit=False)
             result.habit_record_id = habit.id
             result.save()
+            # messages.success(request, "Result added!")
             return redirect(to='habit_detail', pk=habit.pk)
 
     return render(request, "habit/add_result.html", {"form": form, "habit": habit})
@@ -107,9 +116,9 @@ def delete_result(request, result_pk):
         result.delete()
         return redirect(to='habit_detail', pk=habit_pk)
     return render(request, "habit/delete_result.html", {"result": result})
-#issue with the user_id being null
 
 
+# my message not working in add_result??
 # TODO update result to habit (post and save to database)
 # TODO annotate() could help me get the number or of boolean values for results completed. 
 # TODO display the days that the goal was met.  
