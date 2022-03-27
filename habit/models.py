@@ -24,7 +24,7 @@ class Habit(models.Model):
 
 class Result(models.Model):
     daily_record = models.IntegerField()
-    update_date = models.DateField(auto_now_add=datetime.now)
+    update_date = models.DateField(default=datetime.now)
     completed = models.BooleanField(default=False)
     habit_record = models.ForeignKey(
         Habit, related_name="record", on_delete=models.CASCADE, null=True)

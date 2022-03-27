@@ -6,7 +6,7 @@
 
 <div class="pb">
  <p class="f3">Goal: {{ habit.goal }} </p>
- <p>{{ result.update_date }} </p>
+ <p>Successful Days: {{ count }} / {{ total }}</p>
 </div>
 <div class="pv1">
 <button><a href="{% url 'habit_detail' pk=habit.pk %}" class="black no-underline">Back to Habit</a></button>

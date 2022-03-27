@@ -28,8 +28,10 @@ def habit_detail(request, pk):
 def result_detail(request, pk):
     habit = get_object_or_404(Habit, pk=pk)
     results = Result.objects.filter(daily_record__gt=habit.goal)
+    total = Result.objects.filter(habit_record_id=habit.id).count()
+    count = Result.objects.filter(daily_record__gt=habit.goal).count()
     form = HabitForm()
-    return render(request, "habit/result_detail.html", {"habit": habit, "results": results, "form": form}
+    return render(request, "habit/result_detail.html", {"habit": habit, "results": results, "form": form, "count": count, "total": total}
                   )
 
 
