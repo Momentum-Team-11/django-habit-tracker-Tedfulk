@@ -136,6 +136,8 @@ SIMPLE_BACKEND_REDIRECT_URL = "/"
 
 LOGIN_REDIRECT_URL = "/"
 REGISTRATION_AUTO_LOGIN = True
+ACCOUNT_ACTIVATION_DAYS = 365
+
 
 django_on_heroku.settings(locals())
 del DATABASES['default']['OPTIONS']['sslmode']
