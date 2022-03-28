@@ -6,13 +6,13 @@
 
 <div class="pb2">
   <p class="f3">{{ habit.habit.title }} </p>
-  <p>Goal: {{ habit.goal }} </p>
+  <p>Goal: {{ habit.goal }} {{ habit.unit }}</p>
   <button><a href={% url 'result_detail' habit.pk %} class="black no-underline">Days Goal Met</a></button>
 </div>
 <button><a href={% url 'add_result' habit.pk %} class="black no-underline">Add a New Result</a></button>
 
 {% for result in results %}
-  <p>Daily Result: {{ result.daily_record }} </p>
+  <p>Daily Result: {{ result.daily_record }} {{ habit.unit }}</p>
   <p>Date: {{ result.update_date|date:"m/d/Y" }} </p>
   <p>Goal Completed: {{ result.completed }} </p>
  <button><a href={% url 'edit_result'  pk=result.pk %} class="black no-underline">Edit </a></button>

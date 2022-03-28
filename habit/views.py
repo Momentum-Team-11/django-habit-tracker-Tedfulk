@@ -1,3 +1,5 @@
+from datetime import datetime
+from django.forms import DateField
 from django.shortcuts import render, redirect, get_object_or_404, reverse
 from django.contrib.auth.decorators import login_required, user_passes_test
 from habit.models import Habit, Result, User
@@ -19,7 +21,7 @@ def home(request):
 
 def habit_detail(request, pk):
     habit = get_object_or_404(Habit, pk=pk)
-    results = Result.objects.all().filter(habit_record_id=habit.id)
+    results = Result.objects.all().order_by('-update_date').filter(habit_record_id=habit.id)
     form = HabitForm()
     return render(request, "habit/habit_detail.html", {"habit": habit, "results": results, "form": form}
                   )
@@ -27,7 +29,7 @@ def habit_detail(request, pk):
 
 def result_detail(request, pk):
     habit = get_object_or_404(Habit, pk=pk)
-    results = Result.objects.filter(daily_record__gt=habit.goal)
+    results = Result.objects.order_by('-update_date').filter(daily_record__gt=habit.goal)
     total = Result.objects.filter(habit_record_id=habit.id).count()
     count = Result.objects.filter(daily_record__gt=habit.goal).count()
     form = HabitForm()

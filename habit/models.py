@@ -14,6 +14,7 @@ class User(AbstractUser):
 class Habit(models.Model):
     habit = models.CharField(max_length=500, null=True, blank=True)
     goal = models.CharField(max_length=500, null=True, blank=True)
+    unit = models.CharField(max_length=500, null=True, blank=True)
     user = models.ForeignKey(
         User, related_name="habits", on_delete=models.CASCADE,
         null=True, blank=True)
