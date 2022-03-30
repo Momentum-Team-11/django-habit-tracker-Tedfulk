@@ -28,7 +28,7 @@
     {% if user.is_authenticated %}
     <div>
      <nav>
-      <a href={% url 'add_habit' %} class="fw6 near-white ml3">Create Habit</a>
+      <a href={% url 'add_habit'  %} class="fw6 near-white ml3">Create Habit</a>
       <a href={% url 'auth_logout' %} class="fw6 near-white ml3">Log Out</a>
       <!-- // if you are not logged in -->
       {% else %}
