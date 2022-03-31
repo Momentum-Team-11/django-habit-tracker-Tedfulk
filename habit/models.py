@@ -13,7 +13,7 @@ class User(AbstractUser):
 
 class Habit(models.Model):
     habit = models.CharField(max_length=500, null=True, blank=True)
-    goal = models.CharField(max_length=500, null=True, blank=True)
+    goal = models.IntegerField()
     unit = models.CharField(max_length=500, null=True, blank=True)
     user = models.ForeignKey(
         User, related_name="habits", on_delete=models.CASCADE,
@@ -26,7 +26,6 @@ class Habit(models.Model):
 class Result(models.Model):
     daily_record = models.IntegerField()
     update_date = models.DateField(default=datetime.now)
-    completed = models.BooleanField(default=False)
     habit_record = models.ForeignKey(
         Habit, related_name="record", on_delete=models.CASCADE, null=True)
 

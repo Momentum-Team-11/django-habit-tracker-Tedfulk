@@ -18,6 +18,5 @@ class ResultForm(forms.ModelForm):
         fields = [
             'daily_record',
             'update_date',
-            'completed',
             
         ]
