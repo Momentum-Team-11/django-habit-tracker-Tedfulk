@@ -19,4 +19,4 @@ class ResultSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Result
-        fields = ('id', 'daily_record', 'update_date', 'completed', 'habit_record')
+        fields = ('id', 'daily_record', 'update_date', 'habit_record')
