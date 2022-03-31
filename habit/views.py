@@ -15,10 +15,10 @@ def login(request):
 
 @login_required
 def home(request):
-    habits = Habit.objects.all()
+    habits = Habit.objects.filter(user=request.user)
     return render(request, "habit/home.html", {"habits": habits})
 
-
+@login_required
 def habit_detail(request, pk):
     habit = get_object_or_404(Habit, pk=pk)
     results = Result.objects.all().order_by('-update_date').filter(habit_record_id=habit.id)
@@ -26,7 +26,7 @@ def habit_detail(request, pk):
     return render(request, "habit/habit_detail.html", {"habit": habit, "results": results, "form": form}
                   )
 
-
+@login_required
 def result_detail(request, pk):
     habit = get_object_or_404(Habit, pk=pk)
     results = Result.objects.order_by('-update_date').filter(daily_record__gt=habit.goal, habit_record_id=habit.id)
@@ -52,7 +52,7 @@ def add_habit(request):
 
         return render(request, "habit/add_habit.html", {'form': form})
 
-
+@login_required
 def edit_habit(request, pk):
     habit = get_object_or_404(Habit, pk=pk)
     if request.method == 'GET':
@@ -68,7 +68,7 @@ def edit_habit(request, pk):
         "habit": habit
     })
 
-
+@login_required
 def delete_habit(request, pk):
     habit = get_object_or_404(Habit, pk=pk)
     if request.method == 'POST':
