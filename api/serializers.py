@@ -20,3 +20,11 @@ class ResultSerializer(serializers.ModelSerializer):
     class Meta:
         model = Result
         fields = ('id', 'daily_record', 'update_date', 'habit_record')
+
+class HabitResultSerializer(serializers.ModelSerializer):
+    results = ResultSerializer(many=True, required=False, source='record')
+    user = serializers.ReadOnlyField(source='user.username')
+    class Meta:
+        model = Habit
+        fields = ('user', 'id', 'habit', 'results')
+    

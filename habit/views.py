@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect, get_object_or_404, reverse
 from django.contrib.auth.decorators import login_required, user_passes_test
 from habit.models import Habit, Result, User
 from .forms import HabitForm, ResultForm
-from django.contrib import messages
+
 
 
 def login(request):
