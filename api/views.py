@@ -10,9 +10,9 @@ from rest_framework import generics
 @api_view(['GET'])
 def api_root(request, format=None):
     return Response({
-        'users': reverse('user-list', request=request, format=format),
-        'habit': reverse('habit-list', request=request, format=format),
-        'result': reverse('result-list', request=request, format=format)
+        'users': reverse('api_user_list', request=request, format=format),
+        'habit': reverse('api_habit_list', request=request, format=format),
+        'result': reverse('api_result_list', request=request, format=format)
     })
 
 

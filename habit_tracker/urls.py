@@ -18,6 +18,10 @@ from django.urls import path, include
 from habit import views as habit_views
 from api import views as api_views
 from rest_framework.urlpatterns import format_suffix_patterns
+from rest_framework import routers
+
+router = routers.DefaultRouter()
+router.register('habit', api_views.HabitDetail)
 
 
 urlpatterns = [
@@ -45,9 +49,9 @@ urlpatterns = [
     path('api/<int:pk>/habit_result_detail', api_views.HabitResultDetail.as_view(), name='api_habit_result_detail'),
     path('api/result_list', api_views.ResultList.as_view(), name='api_result_list'),
     path('api/<int:pk>/result_detail', api_views.ResultDetail.as_view(), name='api_result_detail'),
-    path('users/', api_views.UserList.as_view(), name='user_list'),
+    path('users/', api_views.UserList.as_view(), name='api_user_list'),
     path('users/<int:pk>/', api_views.UserDetail.as_view(), name='user_detail'),
-    path('', api_views.api_root),
+    path('api_root', api_views.api_root),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

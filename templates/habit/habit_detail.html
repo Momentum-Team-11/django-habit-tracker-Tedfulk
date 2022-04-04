@@ -16,6 +16,8 @@
   <p>Daily Result: {{ result.daily_record }} {{ habit.unit }}</p>
   <p>Date: {{ result.update_date|date:"m/d/Y" }} </p>
   <p>Goal Completed: <i class="fa-solid fa-check green"></i></p>
+  <button><a href={% url 'edit_result' pk=result.pk %} class="black no-underline">Edit </a></button>
+  <button><a href={% url 'delete_result' result_pk=result.pk %} class="black no-underline">Delete </a></button>
 {% else %}
   <p>Daily Result: {{ result.daily_record }} {{ habit.unit }}</p>
   <p>Date: {{ result.update_date|date:"m/d/Y" }} </p>
